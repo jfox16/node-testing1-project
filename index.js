@@ -7,7 +7,14 @@
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
 function trimProperties(obj) {
-  // ✨ implement
+  const trimmedObj = { ...obj };
+  Object.keys(trimmedObj).forEach(key => {
+    const value = trimmedObj[key];
+    if (typeof value === 'string') {
+      trimmedObj[key] = value.trim();
+    }
+  });
+  return trimmedObj;
 }
 
 /**
@@ -19,7 +26,12 @@ function trimProperties(obj) {
  * trimPropertiesMutation({ name: '  jane  ' }) // returns the object mutated in place { name: 'jane' }
  */
 function trimPropertiesMutation(obj) {
-  // ✨ implement
+  Object.keys(obj).forEach(key => {
+    if (typeof obj[key] === 'string') {
+      obj[key] = obj[key].trim();
+    }
+  });
+  return obj;
 }
 
 /**
@@ -31,7 +43,13 @@ function trimPropertiesMutation(obj) {
  * findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]) // returns 3
  */
 function findLargestInteger(integers) {
-  // ✨ implement
+  let largest = -1;
+  integers.forEach(intObj => {
+    if (intObj.integer > largest) {
+      largest = intObj.integer;
+    }
+  })
+  return largest;
 }
 
 class Counter {
@@ -40,7 +58,7 @@ class Counter {
    * @param {number} initialNumber - the initial state of the count
    */
   constructor(initialNumber) {
-    // ✨ initialize whatever properties are needed
+    this.number = initialNumber;
   }
 
   /**
@@ -56,7 +74,11 @@ class Counter {
    * counter.countDown() // returns 0
    */
   countDown() {
-    // ✨ implement
+    const returnNumber = this.number;
+    if (this.number > 0) {
+      this.number--;
+    }
+    return returnNumber;
   }
 }
 
@@ -65,7 +87,7 @@ class Seasons {
    * [Exercise 5A] Seasons creates a seasons object
    */
   constructor() {
-    // ✨ initialize whatever properties are needed
+    this.current = 0;
   }
 
   /**
@@ -80,8 +102,19 @@ class Seasons {
    * seasons.next() // returns "spring"
    * seasons.next() // returns "summer"
    */
+  intToSeason(n) {
+    switch(n) {
+      case 0: return 'spring';
+      case 1: return 'summer';
+      case 2: return 'fall';
+      case 3: return 'winter';
+      default: return null;
+    }
+  }
+
   next() {
-    // ✨ implement
+    this.current = (this.current+1) % 4;
+    return this.intToSeason(this.current);
   }
 }
 
@@ -95,7 +128,6 @@ class Car {
   constructor(name, tankSize, mpg) {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
-    // ✨ initialize whatever other properties are needed
   }
 
   /**
